@@ -24,8 +24,8 @@ class PlacesController < ApplicationController
 
   def update
     @place = Place.find(params[:id])
-    current_user.places.update_attributes(place_params)
-    redirect_to place_path(@place)
+    @place.update_attributes(place_params)
+    redirect_to root_path
   end
 
   private
