@@ -21,6 +21,7 @@ class PlacesController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
   end
 
   def edit
@@ -42,7 +43,7 @@ class PlacesController < ApplicationController
   end
 
   private
-  
+
   def set_place
     @place = Place.find(params[:id])
   end
