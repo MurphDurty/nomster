@@ -6,7 +6,6 @@
   <% if @place.latitude.present? && @place.longitude.present? %>
 
     <script>
-
       function initMap() {
         var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
 
@@ -22,7 +21,6 @@
         });
       }
     </script>
-
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy-3mYThIMt0IekbxcejNFq_UmtM6ZoHc&callback=initMap">
