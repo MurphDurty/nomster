@@ -1,43 +1,48 @@
-<div class="booyah-box col-10 offset-1">
-  <h1><%= @place.name %></h1>
-  <i><%= @place.address %></i>
-  <br/><br/>
-  <p><%= @place.description %></p>
-  <% if @place.latitude.present? && @place.longitude.present? %>
+<div class="row">
+  <div class="booyah-box col-10 offset-1">
+    <h1><%= @place.name %></h1>
+    <i><%= @place.address %></i>
+    <br/><br/>
+    <p><%= @place.description %></p>
 
-    <script>
-      function initMap() {
-        var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
+    <% if @place.latitude.present? && @place.longitude.present? %>
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: myLatLng
-        });
+      <script>
+        function initMap() {
+          var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
 
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          title: 'Hello World!'
-        });
-      }
-    </script>
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: myLatLng
+          });
 
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy-3mYThIMt0IekbxcejNFq_UmtM6ZoHc&callback=initMap">
-    </script>
+          var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'Hello World!'
+          });
+        }
+      </script>
 
-    <div id="map"></div>
-  <% end %>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy-3mYThIMt0IekbxcejNFq_UmtM6ZoHc&callback=initMap">
+      </script>
 
-  <br/>
-
-  <div class="float-right">
-    <% if current_user && current_user == @place.user %>
-      <%= link_to "Edit", edit_place_path(@place), class: "btn btn-primary" %>
-      <%= link_to "Destroy", place_path(@place), method: :delete, data: {confirm: "Are you sure you want to delete this?"}, class: "btn btn-danger" %>
+      <div id="map"></div>
     <% end %>
+
+    <br/>
+
+    <div class="float-right">
+      <% if current_user && current_user == @place.user %>
+        <%= link_to "Edit", edit_place_path(@place), class: "btn btn-primary" %>
+        <%= link_to "Destroy", place_path(@place), method: :delete, data: {confirm: "Are you sure you want to delete this?"}, class: "btn btn-danger" %>
+      <% end %>
+    </div>
   </div>
 </div>
+
+<br/><br/>
 
 <div class="clear"></div>
 
@@ -79,8 +84,10 @@
   <% @place.comments.each do |comment| %>
     <div class="col-12 col-sm-6">
       <blockquote>
-        <b><%= comment.humanized_rating %></b> -
-          <%= comment.message %>
+        <% if comment.humanized_rating.present? %>
+          <b><%= comment.humanized_rating %></b> -
+        <% end %>
+        <%= comment.message %>
         <small><%= comment.user.email %></small>
       </blockquote>
     </div>
